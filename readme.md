@@ -61,11 +61,11 @@ Other communications channels: Skype/Google+, etc. :
 
 ## Student Affiliation
 
-Institution: 
+Institution: Washington Univisity in St.Louis
 
-Program: 
+Program: M.S in Information System
 
-Stage of completion: 
+Stage of completion: second year
 
 Contact to verify: 
 
@@ -88,7 +88,7 @@ Have you been in touch with the mentors? When and how?
 ## Synopsis (max 150 words)
 
 Start your proposal with a short summary of the project, designed to convince the reviewer to read the rest of the proposal.
- 
+Flowchart Creator is a automatically flowchart generator for MUGQIC_PIPELINE, which  
 
 ##  Benefits to Community (max 250 words)
 
@@ -102,7 +102,7 @@ Don't forget to make your case for a benefit to the organization, not just to yo
 Describe in detail your plan for completing the work.  What functions will be written, how and when will you do design, how will you verify the results of your coding?  Each project is different, please make your application appropriate to the work you propose.  
 
 Describe perceived obstacles and challenges, and how you plan to overcome them.
-
+*Coding objective:
 
 
 ## Timeline
