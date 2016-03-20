@@ -35,8 +35,8 @@ It should include the following sections, in this particular order:
 ## Project Info
 
 Project title: 
-Flowchart creator for MUGQIC Pipelines
-Project short title (30 characters): 
+**Flowchart creator for MUGQIC Pipelines**
+Project short title (30 characters): **Flowchart creator**
 
 URL of project idea page: 
 
