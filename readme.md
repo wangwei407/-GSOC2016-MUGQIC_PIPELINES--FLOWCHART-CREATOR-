@@ -88,21 +88,19 @@ Have you been in touch with the mentors? When and how?
 ## Synopsis (max 150 words)
 
 Start your proposal with a short summary of the project, designed to convince the reviewer to read the rest of the proposal.
-Flowchart Creator is a automatically flowchart generator for MUGQIC_PIPELINE, which  
+MUGQIC_PIPELINE program maintain 7 different pipelines and currently develop 3 others,and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps(e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
 
 ##  Benefits to Community (max 250 words)
 
 Don't forget to make your case for a benefit to the organization, not just to yourself.  Why would Google and your organization be proud to sponsor this work? How would open source or society as a whole benefit? What cool things would be demonstrated?
-
-
-
+Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can decide steps range, in this case, a flowchart contains all information which make MUGQIC_PIPELINE software more friendly and concrete. For example, flowchart contains start node(contains pipeline type,time and output path), step node(e.g. step1:convert BAM to FASTQ files), input/output node(e.g. BAM/FAST files) and action node(tell user what action dose the step do). Plus, I will make an integrated Flowchart creator API in pipeline base class so that it will has no requirement that change the pipeline class to add new type pipeline in future. 
 
 ## Coding Plan & Methods
 
 Describe in detail your plan for completing the work.  What functions will be written, how and when will you do design, how will you verify the results of your coding?  Each project is different, please make your application appropriate to the work you propose.  
 
 Describe perceived obstacles and challenges, and how you plan to overcome them.
-*Coding objective:
+*Coding objective: 
 
 
 ## Timeline
