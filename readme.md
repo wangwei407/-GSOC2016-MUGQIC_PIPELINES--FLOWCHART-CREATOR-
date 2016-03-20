@@ -35,7 +35,7 @@ It should include the following sections, in this particular order:
 ## Project Info
 
 Project title: 
-
+Flowchart creator for MUGQIC Pipelines
 Project short title (30 characters): 
 
 URL of project idea page: 
@@ -46,15 +46,15 @@ Provide a brief (text) biography, and why you think your background qualifies yo
 
 ## Contact Information
 
-Student name: 
+Student name: Wei Wang
 
 Melange Link_id:  
 
-Student postal address: 
+Student postal address: 304N SKINKER BLVD, APT 3S, ST.LOUIS, 
 
-Telephone(s): 
+Telephone(s): +1 314-541-5129
 
-Email(s): 
+Email(s): wangwei407@wustl.edu or wei0301wang@gmail.com
 
 Other communications channels: Skype/Google+, etc. : 
 
