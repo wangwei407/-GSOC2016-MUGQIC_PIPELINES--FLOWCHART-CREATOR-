@@ -88,17 +88,19 @@ Graphviz consists of a graph description language named the [DOT language](https
 * Graphviz provide [many attributes](http://www.graphviz.org/doc/info/attrs.html) to nodes, edges, subgraph. Such as color, size, font, style and url (e.g. When user click on the Trimmoatic node, flowchart will redirect user to trimmomatic [documentation](http://www.usadellab.org/cms/index.php?page=trimmomatic) website)
 * Graphviz consists of DOT language which is an easy and concise language to depict a directed graph.
 * For example,  
+```dot
   digraph G {  
   "MUGQIC PIPELINE START!"->"run step"  
   "run step"->"END"
   }    
   This is an easy directed graph contains 3 nodes, and two edges (-> connects two nodes)
-
+```
 ####[pydot](http://code.google.com/p/pydot/)
 a python interface to graphviz software  
 **Why I choose pydot**  
 * Pydot is an **open-source** and **light-weighted** python interface to graphviz, it's mechanism is transfer python code to DOT language and call Graphviz to output the graph.  
 For example, use python module pydot to draw the graph    
+```python
 import pydot  
 Graph=pydot.Dot() #create a dot object  
 edge1=pydot.Edge('MUGQIC PIPELINE START','run step')  #create a edge between node1 and node2  
@@ -106,15 +108,82 @@ edge2=pydot.Edge('run step','END')
 Graph.add_edge(edge1) #add edge1 to Graph  
 Graph.add_edge(edge2)  
 Graph.write_png('example.png') #output a png graph named 'example'  
+```
 ![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)  
 
 ###Flowchart Creator API structure    
 I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:    
 ![class.png](http://52.36.214.116/~wangwei407/gsoc2016/class.png)  
-In this case, Flowchart Creator API will receive two arguments  
-1. Class name, passed bu self.class.__name__
-I will implement factory technology and make my Flowchart Creator callable, 
+**In this case, Flowchart Creator API will have 7 kinds of flowchart creator classes and has the same hierarchy as MUGQIC_PIPELINE:**  
+```python
+1. class MUGQICPipelineCreator  #base class for all creator class
+2. class IlluminaRunProcessingCreator(MUGQICPipelineCreator) #(match a pipeline tool)  
+3. class BioAssemblyPacoCreator(MUGQICPipelineCreator)  #(match a pipeline tool)    
+4. class IlluminaCreator(MUGQICPipelineCreator) #This class is not a pipeline tool, but it is the parent class for DnaSeq, RnaSeq.    
+5. class DnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
+6. class RnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
+7. class RnaSeqDeNovoAssemblyCreator(IlluminaCreator)  #(match a pipeline tool)  
+8. class ChiSeqCreator(DnaSeqGenerator) #(match a pipeline tool)  
+9. class DnaSeqHighCoverageCreator #(match a pipeline tool)  
+```
+> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in DnaSeq pipeline, there is a step function trimmomatic which clean FASTQ files so that there will be a function named tremmomatic in DnaSeqCreator to draw a related action, input/output node for this step.  
+2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related function to draw step nodes and connect them to output.  
 
+### Merge every Creator class into a callable factory class.
+#### Register every creator class and its related draw_flowchart function into a dict
+```python
+from abc import ABCMeta
+import six
+CREATOR_CLASSES={}
+class CreatorRegistry(ABCMeta):
+        '''
+        metaclass to define creator class
+        '''
+        registry = CREATOR_CLASSES
+        def __new__(mcls,name,bases,memebers):
+            cls=super(CreatorRegistry,mcls).__new__(mcls,name,bases,memebers)
+            if 'draw_flowchart' in memebers:
+                mcls.registry[cls.__name__]=cls.draw_flowchart #store class name and draw_flowchart function in a dict
+            return cls
+@six.add_metaclass(CreatorRegistry)
+class MUGQICPipelineCreator:
+        pass
+```
+> In this case, CREATOR_CLASSES will store all class name(key) and related class method draw_flowchart function(value).
+
+#### Factory class to merge all Creator class callable  
+```python
+class CreatorFactory:
+      def __init__(self):
+         self.registry=CREATOR_CLASSES #pass the rigistry CREATOR_CLASSES into CreatorFactory class
+      def __call__(clsname,steps):  
+          '''
+          @param receive a class name and step object list
+          '''
+          return _check_class(clsname,steps)
+      def _check_class(clsname,steps): 
+          self.parse_params(steps) 
+          Then search self.registry to find out matched clsname and call its related draw_flowchart function to output flowchart
+      def parse_params(steps):
+          '''
+          transfer step object list to a step name (string) list
+          '''
+          pass  
+Creator=CreatorFactory() #create a CreatorFactory object in order to merge Creator API to MUGQICPipeline Software
+```
+#### Merge Creator API into MUGQICPipeline software
+I have observed in core.Pipeline class init() function: 
+```python
+104. if self.args.steps:
+105.                if re.search("^\d+([,-]\d+)*$", self.args.steps):
+106.                    self._step_range = [self.step_list[i - 1] for i in parse_range(self.args.steps)]
+107.                else:
+108.                    raise Exception("Error: step range \"" + self.args.steps +
+109.                        "\" is invalid (should match \d+([,-]\d+)*)!")
+110.            else:
+111.                self.argparser.error("argument -s/--steps is required!")
+```
+> ```python self._step_range```is
 ###Flowchart legend for MUGQIC_PIPELINES  
 **input/output node**  
 ####![input.png](http://52.36.214.116/~wangwei407/gsoc2016/input.png)
