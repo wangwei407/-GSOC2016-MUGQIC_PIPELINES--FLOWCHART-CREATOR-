@@ -17,15 +17,22 @@
 
 ## Project Info
 
-Project title: 
-**Flowchart creator for MUGQIC Pipelines**
-Project short title (30 characters): **Flowchart creator**
+Project title: **Flowchart creator for MUGQIC Pipelines**  
+Project short title (30 characters): **Flowchart creator**  
+URL of project idea page: [idea link](https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines)  
+## Biographical Information  
+Provide a brief (text) biography, and why you think your background qualifies you for this project.  
+I am a graduate student pursuing MS in Information System for Big Data and Predictive Analytics Track at [Washington university in St.Louis](http://wustl.edu). I was an undergraduate student at Anhui University of Technology in Information system major. Though I am an information system student, I got a solid programming knowledge structure (programming skills, data structure and algorithm, OS organization) when I was in China.
+### Why I think my background qualifies me for this project.  
+* I have a solid background of python and OS organization(unix) which help me to be familiar with MUGQICPipeline structure quickly.    
+* In addition, in my free time, I have experienced in using Graphviz software and I hava learned the basic knowledge of pipeline flowchart
+* I have experienced in github and bitbucket.
 
-URL of project idea page: 
-
-## Biographical Information
-
-Provide a brief (text) biography, and why you think your background qualifies you for this project.
+### Why I choose this project
+* I am interested in MUGQICPipeline structure. It is the first time for me to know how to control pipeline on clusters with python.
+* I am a studious student and my major is data analysis. So I think in the future I can help the community to develop other tools with my major knowledge. 
+* I think that pipeline flowchart idea is a cool idea, which makes MUGQICPipeline more user-friendly and concrete.
+* I really love this project and the mentor of this project is very kind and patience.
 
 ## Contact Information
 
@@ -33,9 +40,9 @@ Student name: Wei Wang
 
 Melange Link_id:  
 
-Student postal address: 304N SKINKER BLVD, APT 3S, ST.LOUIS, 
+Student postal address: 304N SKINKER BLVD, APT 3S, ST.LOUIS, MO, U.S.
 
-Telephone(s): +1 314-541-5129
+Telephone(s): +1 314-541-5129 or +86 139-3399-7555
 
 Email(s): wangwei407@wustl.edu or wei0301wang@gmail.com
 
@@ -50,12 +57,12 @@ Program: M.S in Information System
 
 Stage of completion: second year
 
-Contact to verify: 
+Contact to verify: There is an automatically generated [PDF](http://52.36.214.116/~wangwei407/gsoc2016/Information.pdf) from my university account.
 
 
 ## Schedule Conflicts
 
-Please list any schedule conflict that will interfere with you treating your proposed C3G GCoC project as a full time job in the summer.  If you are applying to other internships, or have other commitments, list them.
+This summer, I don't have any other internships or plans, so I can contuibute all my time to this project.
 
 ## Mentors
 
@@ -109,9 +116,10 @@ Graph.add_edge(edge1) #add edge1 to Graph
 Graph.add_edge(edge2)  
 Graph.write_png('example.png') #output a png graph named 'example'  
 ```
-#### Merge Graphviz and python module into MUGQICPipeline (Thanks to mentor Johanna giving me correct direction and clues)
-##### Add pydot into resources.python_lib.sh and write a bash script Graphviz.sh to install Graphviz software in MUGQICPipeline software
 ![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)  
+
+#### Merge Graphviz and python module into MUGQICPipeline (Thanks to mentor Johanna giving me correct direction and clues)
+> Add pydot into resources.python_lib.sh and write a bash script Graphviz.sh to install Graphviz software in MUGQICPipeline software
 
 ###Flowchart Creator API structure  (challenge) (Thanks to mentor Johanna giving me correct direction and clues)  
 I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:    
@@ -246,18 +254,40 @@ the corresponding step are:
 Provide a detailed timeline of how you plan to spend your summer, organized by deliverables.  Don't leave testing and documentation for last, as that's almost a guarantee of a failed project. 
 
 What is your contingency plan for things not going to schedule? 
+* **23 April** Get to contact mentor and gather information about MUGQICPipeline, such as each pipeline steps details.
+* **23 May** Begin coding for project.
+
+###  **Work Period** 
+* **23 May-28** Design whole Flowchart Creator API.
+* **29 May-3 June** Writing documentation for API, including CreatorFactory class and each pipeline Creator class.
+* **4 June-6 June** Design and writing a test class to make sure Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps.For example, for step list[1,3,4,6,7,19,30] output sequence: 1,3,4,6,7,19,30 is correct, sequence: 1,4,6,3,7,19,30 is wrong.
+* **7 June-11 June** Writing CreatorFactory class.
+* **12 June-18 June** Writing Creator classes for each pipeline,which has a sequence as follows:
+![sequence]()
+* **20 June** Mentors and students can begin submitting mid-term evaluations.
+* **27 June** Mid-term evaluations deadline
+* **28 June-August 10** Finish the rest part of Creator for pipeline
+* **August 10-August 23** Test Flowchart Creator API. Disscuss with MUGQICPipeline team to build the flowchart more concise and beautiful(modify node,edges shape and color and output path and etc.)
 
 
 ## Management of Coding Project
 
-How do you propose to ensure code is submitted / tested?
-
-How often do you plan to commit?  What changes in commit behavior would indicate a problem?
+* Clone MUGQICPipeline to [my respository](http://github.com/wangwei407), and make a branch.
+* Every week, I will commit the change to the branch. I can test my API on local. And I will report test files to mentor and upload to my branch.
+* When I finished the whole API, I will pull request to MUGQICPipeline repository.
 
 
 ## Test
+#### Test Class description:
+* Randomly generate two ouput:  
+  1. class name for pipeline type.    
+  2. step object sequence list. For example, step[1,2,3,5,6,7,10,20]  
+* Then pass the output to Creator API.
+* Get the return of Creator API.
+* Check the class name is matched
+* Check the step output sequence is matched and correct.
 
-Describe the qualification test that you have submitted to you project mentors.  If feasible, include code, details, output, and example of similar coding problems that you have solved.
+
 
 
 ## Anything Else
