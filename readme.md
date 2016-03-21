@@ -85,10 +85,29 @@ Graphviz consists of a graph description language named the [DOT language](https
 **Why I choose Graphviz:**
 * Graphviz is a mature, stable, open-source and free of charge software. Though it is not a dedicated flowchart or diagramming package, but it's core use case--i.e, efficient and asethetic rendering of objects comprised of nodes and edges, obviously subsumes flowchart drawing
 * Graphviz has it's own algorithm to automatically arrange nodes and edge.
-* Graphviz provide [many attributes](http://www.graphviz.org/doc/info/attrs.html) to nodes, edges, subgraph. Such as color, size, font, style and url(which could be a userful )
+* Graphviz provide [many attributes](http://www.graphviz.org/doc/info/attrs.html) to nodes, edges, subgraph. Such as color, size, font, style and url(e.g. When user click on the Trimmoatic node, flowchart will redirect user to trimmomatic [documentation](http://www.usadellab.org/cms/index.php?page=trimmomatic) website)
+* Graphviz consists of DOT language which is an easy and concise language to depict a directed graph.
+* For example,  
+  digraph G {  
+  "MUGQIC PIPELINE START!"->"run step"  
+  "run step"->"END"
+  }    
+  This is an easy directed graph contains 3 nodes, and two edge(-> connects two nodes)
 
 ####[pydot](http://code.google.com/p/pydot/)
-a python interface to graphviz software
+a python interface to graphviz software  
+**Why I choose pydot**  
+* Pydot is an open-source python interface to graphviz, it's mechanism is transfer python code to DOT language and call Graphviz to output the graph.  
+For example, use python module pydot to draw the graph  
+import pydot
+Graph=pydot.Dot() #create a dot object
+edge1=pydot.Edge('MUGQIC PIPELINE START','run step')  #create a edge between node1 and node2  
+edge2=pydot.Edge('run step','END')  
+Graph.add_edge(edge1) #add edge1 to Graph  
+Graph.add_edge(edge2)  
+Graph.write_png('example.png') #output a png graph named 'example'  
+![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)
+
 ###Flowchart legend for MUGQIC_PIPELINES
 **input/output node**
 ####![input.png](http://52.36.214.116/~wangwei407/gsoc2016/input.png)
