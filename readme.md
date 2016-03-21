@@ -81,6 +81,12 @@ A Flowchart Creator Class which is merged into pipeline base class.
 ###dependencies
 ####[Graphviz](http://www.graphviz.org)
 Graphviz is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. It has important applications in networking, bioinformatics,  software engineering, database and web design, machine learning, and in visual interfaces for other technical domains. 
+Graphviz consists of a graph description language named the [DOT language](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) and a set of tools that can generate and/or process.
+**Why I choose Graphviz:**
+* Graphviz is a mature, stable, open-source and free of charge software. Though it is not a dedicated flowchart or diagramming package, but it's core use case--i.e, efficient and asethetic rendering of objects comprised of nodes and edges, obviously subsumes flowchart drawing
+* Graphviz has it's own algorithm to automatically arrange nodes and edge.
+* Graphviz provide [many attributes](http://www.graphviz.org/doc/info/attrs.html) to nodes, edges, subgraph. Such as color, size, font, style and url(which could be a userful )
+
 ####[pydot](http://code.google.com/p/pydot/)
 a python interface to graphviz software
 ###Flowchart legend for MUGQIC_PIPELINES
