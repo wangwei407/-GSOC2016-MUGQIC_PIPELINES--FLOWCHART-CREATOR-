@@ -262,7 +262,7 @@ What is your contingency plan for things not going to schedule?
 ###  **Work Period** 
 * **23 May-28** Design whole Flowchart Creator API.
 * **29 May-3 June** Write documentation for API, including CreatorFactory class and each pipeline Creator class.
-* **4 June-6 June** Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list[1,3,4,6,7,19,30] output sequence: 1,3,4,6,7,19,30 is correct, sequence: 1,4,6,3,7,19,30 is wrong.
+* **4 June-6 June** Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list [1,3,4,6,7,19,30] output sequence: [1,3,4,6,7,19,30] is correct, sequence: [1,4,6,3,7,19,30] is wrong.
 * **7 June-11 June** Write CreatorFactory class.
 * **12 June-18 June** Write Creator classes for each pipeline, which has an order as follows:
 ![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence.png)
