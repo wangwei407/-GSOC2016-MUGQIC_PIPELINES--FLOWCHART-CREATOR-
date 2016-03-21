@@ -97,7 +97,7 @@ Graphviz consists of a graph description language named the [DOT language](https
 ####[pydot](http://code.google.com/p/pydot/)
 a python interface to graphviz software  
 **Why I choose pydot**  
-* Pydot is an open-source and light-weighted python interface to graphviz, it's mechanism is transfer python code to DOT language and call Graphviz to output the graph.  
+* Pydot is an **open-source** and **light-weighted** python interface to graphviz, it's mechanism is transfer python code to DOT language and call Graphviz to output the graph.  
 For example, use python module pydot to draw the graph    
 import pydot  
 Graph=pydot.Dot() #create a dot object  
@@ -107,9 +107,13 @@ Graph.add_edge(edge1) #add edge1 to Graph
 Graph.add_edge(edge2)  
 Graph.write_png('example.png') #output a png graph named 'example'  
 ![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)  
+
 ###Flowchart Creator API structure    
 I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:    
 ![class.png](http://52.36.214.116/~wangwei407/gsoc2016/class.png)  
+In this case, Flowchart Creator API will receive two arguments  
+1. Class name, passed bu self.class.__name__
+I will implement factory technology and make my Flowchart Creator callable, 
 
 ###Flowchart legend for MUGQIC_PIPELINES  
 **input/output node**  
