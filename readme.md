@@ -25,7 +25,7 @@ Provide a brief (text) biography, and why you think your background qualifies yo
 I am a graduate student pursuing MS in Information System for Big Data and Predictive Analytics Track at [Washington university in St.Louis](http://wustl.edu). I was an undergraduate student at Anhui University of Technology in Information system major. Though I am an information system student, I got a solid programming knowledge structure (programming skills, data structure and algorithm, OS organization) when I was in China.
 ### Why I think my background qualifies me for this project.  
 * I have a solid background of python and OS organization(unix) which help me to be familiar with MUGQICPipeline structure quickly.    
-* In addition, in my free time, I have experienced in using Graphviz software and I hava learned the basic knowledge of pipeline flowchart
+* In addition, in my free time, I have experienced in using Graphviz software and I hava learned the basic knowledge of pipeline flowchart.
 * I have experienced in github and bitbucket.
 
 ### Why I choose this project
@@ -51,7 +51,9 @@ Other communications channels: Skype/Google+, etc. :
 
 ## Student Affiliation
 
-Institution: Washington Univisity in St.Louis
+University: Washington Univisity in St.Louis  
+
+School: School of Engineering & Applied Science
 
 Program: M.S in Information System
 
@@ -76,10 +78,10 @@ Have you been in touch with the mentors? When and how?
 
 
 ## Synopsis (max 150 words)
-MUGQIC_PIPELINE program maintain 7 different pipelines and currently develop 3 others,and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps(e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
+MUGQIC_PIPELINE program maintains 7 different kinds of pipelines and currently develops 3 others, and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps (e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
 
 ##  Benefits to Community (max 250 words)
-Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can decide steps range, in this case, a flowchart contains all information which make MUGQIC_PIPELINE software more friendly and concrete. For example, flowchart contains start node(contains pipeline type,time and output path), step node(e.g. step1:convert BAM to FASTQ files), input/output node(e.g. BAM/FAST files) and action node(tell user what action dose the step do). Plus, I will make an integrated Flowchart creator API in pipeline base class so that it will has no requirement that change the pipeline class to add new type pipeline in future. 
+Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can decide steps range, in this case, a flowchart contains all information which make MUGQIC_PIPELINE software more user-friendly and concrete. For example, flowchart contains start node (contains pipeline type,time and output path), step node (e.g. step1:convert BAM to FASTQ files), input/output node (e.g. BAM/FAST files) and action node (tell user what action dose the step do). Plus, I will make an integrated Flowchart creator API in pipeline base class so that it will has no requirement that changing the pipeline class in order to add new type pipeline in future. 
 
 ## Coding Plan & Methods
 Describe perceived obstacles and challenges, and how you plan to overcome them.
@@ -105,7 +107,7 @@ Graphviz consists of a graph description language named the [DOT language](https
 ####[pydot](http://code.google.com/p/pydot/)
 a python interface to graphviz software  
 **Why I choose pydot**  
-* Pydot is an **open-source** and **light-weighted** python interface to graphviz, it's mechanism is transfer python code to DOT language and call Graphviz to output the graph.  
+* Pydot is an **open-source** and **light-weighted** python interface to graphviz, the mechanism of pydot is to transfer python code to DOT language and call Graphviz to output the graph.  
 For example, use python module pydot to draw the graph    
 ```python
 import pydot  
@@ -136,8 +138,8 @@ I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the p
 8. class ChiSeqCreator(DnaSeqGenerator) #(match a pipeline tool)  
 9. class DnaSeqHighCoverageCreator #(match a pipeline tool)  
 ```
-> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in DnaSeq pipeline, there is a step function trimmomatic which clean FASTQ files so that there will be a function named tremmomatic in DnaSeqCreator to draw a related action, input/output node for this step.  
-2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related function to draw step nodes and connect them to output.  
+> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.  
+2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related functions to draw step nodes and connect them to output.  
 
 ### Merge every Creator class into a callable factory class.
 #### Register every creator class and its related draw_flowchart function into a dict
@@ -259,34 +261,34 @@ What is your contingency plan for things not going to schedule?
 
 ###  **Work Period** 
 * **23 May-28** Design whole Flowchart Creator API.
-* **29 May-3 June** Writing documentation for API, including CreatorFactory class and each pipeline Creator class.
-* **4 June-6 June** Design and writing a test class to make sure Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps.For example, for step list[1,3,4,6,7,19,30] output sequence: 1,3,4,6,7,19,30 is correct, sequence: 1,4,6,3,7,19,30 is wrong.
-* **7 June-11 June** Writing CreatorFactory class.
-* **12 June-18 June** Writing Creator classes for each pipeline,which has an order as follows:
+* **29 May-3 June** Write documentation for API, including CreatorFactory class and each pipeline Creator class.
+* **4 June-6 June** Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list[1,3,4,6,7,19,30] output sequence: 1,3,4,6,7,19,30 is correct, sequence: 1,4,6,3,7,19,30 is wrong.
+* **7 June-11 June** Write CreatorFactory class.
+* **12 June-18 June** Write Creator classes for each pipeline, which has an order as follows:
 ![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence.png)
 * **20 June** Mentors and students can begin submitting mid-term evaluations.
 * **27 June** Mid-term evaluations deadline
 * **28 June-August 10** Finish the rest part of Creator for pipeline
-* **August 10-August 23** Test Flowchart Creator API. Disscuss with MUGQICPipeline team to build the flowchart more concise and beautiful(modify node,edges shape and color and output path and etc.)
+* **August 10-August 23** Test Flowchart Creator API. Disscuss with MUGQICPipeline team to build the flowchart more concise and beautiful (modify node,edges shape and color and output path and etc.)
 
 
 ## Management of Coding Project
 
 * Clone MUGQICPipeline to [my respository](http://github.com/wangwei407), and make a branch.
 * Every week, I will commit the change to the branch. I can test my API on local. And I will report test files to mentor and upload to my branch.
-* When I finished the whole API, I will pull request to MUGQICPipeline repository.
+* When I finished the whole API, I will make a pull request to MUGQICPipeline repository.
 
 
 ## Test
 #### Test Class description:
 * Randomly generate two ouput:  
-  1. class name for pipeline type.    
+  1. class name for pipeline type. (e.g. DnaSeq,RnaSeq)    
   2. step object sequence list. For example, step[1,2,3,5,6,7,10,20]  
 * Then pass the output to Creator API.
 * Get the return of Creator API.
 * Check whether or not the class name is matched
 * Check whether or not the step output sequence is matched and correct.
-
+* Check whether the step is out of range for pipeline. (e.g. ChiSeq has total 15 steps if Creator receive a step list[1,2,3,4,16] it will raise an out of step range exception)
 
 
 
