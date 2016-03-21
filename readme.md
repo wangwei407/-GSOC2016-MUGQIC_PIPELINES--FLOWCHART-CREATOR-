@@ -77,7 +77,7 @@ Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in *
 ## Coding Plan & Methods
 Describe perceived obstacles and challenges, and how you plan to overcome them.
 ###Coding objective:
-A Flowchart Creator Class which is merged into pipeline base class.
+A Flowchart Creator API which is merged into pipeline base class.
 ###dependencies
 ####[Graphviz](http://www.graphviz.org)
 Graphviz is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. It has important applications in networking, bioinformatics,  software engineering, database and web design, machine learning, and in visual interfaces for other technical domains. 
@@ -109,9 +109,11 @@ Graph.add_edge(edge1) #add edge1 to Graph
 Graph.add_edge(edge2)  
 Graph.write_png('example.png') #output a png graph named 'example'  
 ```
+#### Merge Graphviz and python module into MUGQICPipeline (Thanks to mentor Johanna giving me correct direction and clues)
+##### Add pydot into resources.python_lib.sh and write a bash script Graphviz.sh to install Graphviz software in MUGQICPipeline software
 ![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)  
 
-###Flowchart Creator API structure    
+###Flowchart Creator API structure  (challenge) (Thanks to mentor Johanna giving me correct direction and clues)  
 I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:    
 ![class.png](http://52.36.214.116/~wangwei407/gsoc2016/class.png)  
 **In this case, Flowchart Creator API will have 7 kinds of flowchart creator classes and has the same hierarchy as MUGQIC_PIPELINE:**  
@@ -174,7 +176,7 @@ Creator=CreatorFactory() #create a CreatorFactory object in order to merge Creat
 #### Merge Creator API into MUGQICPipeline software
 I have observed in core.Pipeline class init() function: 
 ```python
-104. if self.args.steps:
+104.            if self.args.steps:
 105.                if re.search("^\d+([,-]\d+)*$", self.args.steps):
 106.                    self._step_range = [self.step_list[i - 1] for i in parse_range(self.args.steps)]
 107.                else:
@@ -183,7 +185,21 @@ I have observed in core.Pipeline class init() function:
 110.            else:
 111.                self.argparser.error("argument -s/--steps is required!")
 ```
-> ```python self._step_range```is
+> ``` self._step_range```is a parsed step object list. In this case, just add ```from CreatorFactory import Creator``` to the header and pass ```self._step_range and class name```to Creator. Like this:
+
+```python
+104.            if self.args.steps:
+105.                if re.search("^\d+([,-]\d+)*$", self.args.steps):
+106.                    self._step_range = [self.step_list[i - 1] for i in parse_range(self.args.steps)]
+107.                else:
+108.                    raise Exception("Error: step range \"" + self.args.steps +
+109.                        "\" is invalid (should match \d+([,-]\d+)*)!")
+110.            else:
+111.                self.argparser.error("argument -s/--steps is required!")
+112.            Creator(self.__class__.__name__, self._step_range) #pass class name and step object list to Creator
+```
+> In this case, My Creator Factory API has merged into MUGQICPipeline software, and it can output flowchart automatically when pipeline tool is called. 
+
 ###Flowchart legend for MUGQIC_PIPELINES  
 **input/output node**  
 ####![input.png](http://52.36.214.116/~wangwei407/gsoc2016/input.png)
