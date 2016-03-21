@@ -284,8 +284,8 @@ What is your contingency plan for things not going to schedule?
   2. step object sequence list. For example, step[1,2,3,5,6,7,10,20]  
 * Then pass the output to Creator API.
 * Get the return of Creator API.
-* Check the class name is matched
-* Check the step output sequence is matched and correct.
+* Check whether or not the class name is matched
+* Check whether or not the step output sequence is matched and correct.
 
 
 
