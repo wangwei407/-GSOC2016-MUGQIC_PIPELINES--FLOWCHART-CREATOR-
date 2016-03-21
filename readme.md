@@ -68,14 +68,14 @@ This summer, I don't have any other internships or plans, so I can contuibute al
 
 ## Mentors
 
-Mentor names: 
+Mentor names: Johanna Sandoval
 
-Mentor emails: 
+Mentor emails: johanna.sandoval@computationalgenomics.ca
 
 Mentor link_ids: 
 
 Have you been in touch with the mentors? When and how? 
-
+Yes, I have been in touch with mentors Johanna and Mathieu through E-maill. And I disscussed some technology issues with mentor Jonhanna, she gives me some very usefull directions and clues about how to merge my module into the MUGQICPipeline software.
 
 ## Synopsis (max 150 words)
 MUGQIC_PIPELINE program maintains 7 different kinds of pipelines and currently develops 3 others, and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps (e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
