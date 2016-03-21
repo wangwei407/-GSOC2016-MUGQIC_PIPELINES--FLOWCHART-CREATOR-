@@ -135,8 +135,8 @@ I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the p
 5. class DnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
 6. class RnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
 7. class RnaSeqDeNovoAssemblyCreator(IlluminaCreator)  #(match a pipeline tool)  
-8. class ChiSeqCreator(DnaSeqGenerator) #(match a pipeline tool)  
-9. class DnaSeqHighCoverageCreator #(match a pipeline tool)  
+8. class ChiSeqCreator(DnaSeqCreator) #(match a pipeline tool)  
+9. class DnaSeqHighCoverageCreator(DnaSeqCreator) #(match a pipeline tool)  
 ```
 > 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.  
 2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related functions to draw step nodes and connect them to output.  
@@ -159,7 +159,41 @@ class CreatorRegistry(ABCMeta):
             return cls
 @six.add_metaclass(CreatorRegistry)
 class MUGQICPipelineCreator:
-        pass
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class IlluminaCreator(MUGQICPipelineCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class IlluminaRunProcessingCreator(MUGQICPipelineCreator):
+        @classmethod
+        draw_flowchart(clsname,steps):
+            pass        
+class BioAssemblyPacoCreator(MUGQICPipelineCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass            
+class DnaSeqCreator(IlluminaCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class RnaSeqCreator(IlluminaCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass   
+class RnaSeqDeNovoAssembilyCreator(IlluminaCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass 
+class ChiSeqCreator(DnaSeqCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class DnaSeqHighCoverageCreator(DnaSeqCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps)
+            pass
 ```
 > In this case, CREATOR_CLASSES will store all class name(key) and related class method draw_flowchart function(value).
 
