@@ -262,8 +262,8 @@ What is your contingency plan for things not going to schedule?
 * **29 May-3 June** Writing documentation for API, including CreatorFactory class and each pipeline Creator class.
 * **4 June-6 June** Design and writing a test class to make sure Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps.For example, for step list[1,3,4,6,7,19,30] output sequence: 1,3,4,6,7,19,30 is correct, sequence: 1,4,6,3,7,19,30 is wrong.
 * **7 June-11 June** Writing CreatorFactory class.
-* **12 June-18 June** Writing Creator classes for each pipeline,which has a sequence as follows:
-![sequence]()
+* **12 June-18 June** Writing Creator classes for each pipeline,which has an order as follows:
+![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence.png)
 * **20 June** Mentors and students can begin submitting mid-term evaluations.
 * **27 June** Mid-term evaluations deadline
 * **28 June-August 10** Finish the rest part of Creator for pipeline
