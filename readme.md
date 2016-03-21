@@ -106,17 +106,17 @@ edge2=pydot.Edge('run step','END')
 Graph.add_edge(edge1) #add edge1 to Graph  
 Graph.add_edge(edge2)  
 Graph.write_png('example.png') #output a png graph named 'example'  
-![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)
+![example.png](http://52.36.214.116/~wangwei407/gsoc2016/example.png)  
 ###Flowchart Creator API structure    
-I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:
-![pipelinestructure.png]()
+I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:    
+![class.png](http://52.36.214.116/~wangwei407/gsoc2016/class.png)  
 
-###Flowchart legend for MUGQIC_PIPELINES
-**input/output node**
+###Flowchart legend for MUGQIC_PIPELINES  
+**input/output node**  
 ####![input.png](http://52.36.214.116/~wangwei407/gsoc2016/input.png)
-**start/end node**
+**start/end node**  
 ####![start.png](http://52.36.214.116/~wangwei407/gsoc2016/step.png)
-**action node**
+**action node**  
 ####![action.png](http://52.36.214.116/~wangwei407/gsoc2016/action.png)
 ###Flowchart expected outcome(selection test)  
 ####**Selection tests**  
