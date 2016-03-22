@@ -161,7 +161,41 @@ class CreatorRegistry(ABCMeta):
             return cls
 @six.add_metaclass(CreatorRegistry)
 class MUGQICPipelineCreator:
-        pass
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class IlluminaCreator(MUGQICPipelineCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class IlluminaRunProcessingCreator(MUGQICPipelineCreator):
+        @classmethod
+        draw_flowchart(clsname,steps):
+            pass        
+class BioAssemblyPacoCreator(MUGQICPipelineCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass            
+class DnaSeqCreator(IlluminaCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class RnaSeqCreator(IlluminaCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass   
+class RnaSeqDeNovoAssembilyCreator(IlluminaCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass 
+class ChiSeqCreator(DnaSeqCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps):
+            pass
+class DnaSeqHighCoverageCreator(DnaSeqCreator):
+        @classmethod
+        def draw_flowchart(clsname,steps)
+            pass
 ```
 > In this case, CREATOR_CLASSES will store all class name(key) and related class method draw_flowchart function(value).
 
