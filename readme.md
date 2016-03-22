@@ -21,18 +21,18 @@ Project title: **Flowchart creator for MUGQIC Pipelines**
 Project short title (30 characters): **Flowchart creator**  
 URL of project idea page: [idea link](https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines)  
 ## Biographical Information  
-Provide a brief (text) biography, and why you think your background qualifies you for this project.  
-I am a graduate student pursuing MS in Information System for Big Data and Predictive Analytics Track at [Washington university in St.Louis](http://wustl.edu). I was an undergraduate student at Anhui University of Technology in Information system major. Though I am an information system student, I got a solid programming knowledge structure (programming skills, data structure and algorithm, OS organization) when I was in China.
+I am a graduate student at [Washington University in St.Louis](http://wustl.edu), pursuing Master in Information System for Big Data and Predictive Analytics Track. Before coming to U.S. I received my B.S. at Anhui University of Technology, China, in Information system program. Through my course studies and extra curriculum activities, I has built up solid programming backgrounds in aspects such as proficiency in coding and understanding with data structure and algorithm, and, more importantly, ability to analyze and solve problems.
 ### Why I think my background qualifies me for this project.  
-* I have a solid background of python and OS organization(unix) which help me to be familiar with MUGQICPipeline structure quickly.    
-* In addition, in my free time, I have experienced in using Graphviz software and I hava learned the basic knowledge of pipeline flowchart
-* I have experienced in github and bitbucket.
+* My solid background and considerable experience, with programming in general and python in specfic, has made it possible for me to analyze the source codes and understand the infrastructure of MUGQICPipeline soon enough;
+* I am able to perform operations in Unix/Linux environment for necessary system setup, development and testing work;
+* I have good experienced with Graphviz libraries and extensions, which seem to be a good solution alternative for the task objectives, and I hava demonstrated my knowledge with pipeline flowchart;
+* I have good experience with GIT version control system and specific source code collaboration hosts such as github and bitbucket.
 
 ### Why I choose this project
-* I am interested in MUGQICPipeline structure. It is the first time for me to know how to control pipeline on clusters with python.
-* I am a studious student and my major is data analysis. So I think in the future I can help the community to develop other tools with my major knowledge. 
-* I think that pipeline flowchart idea is a cool idea, which makes MUGQICPipeline more user-friendly and concrete.
-* I really love this project and the mentor of this project is very kind and patience.
+* I have big interest in strenghtening my development skills with Python, with production-level system development, and it would be a great experience to make that happen while making recognized contribution to a serious and functional project like MUGQICPipeline, which also makes considerable contribution to the field and to the world;
+* After studying the current implementation of MUGQICPipeline, I am impressed by how Python-based system could handle complicated cluster-fashion work flows for various users and groups. And I would definitely like to explore more in depth and learn from the people who make that happen;
+* The phylosophy of how MUGQICPipeline has been designed and implementated to handle various data integration and analysis demands is of great use for some of the future courses in my program;
+* The interaction with the mentor of this project is very positive.
 
 ## Contact Information
 
@@ -51,7 +51,9 @@ Other communications channels: Skype/Google+, etc. :
 
 ## Student Affiliation
 
-Institution: Washington Univisity in St.Louis
+University: Washington Univisity in St.Louis  
+
+School: School of Engineering & Applied Science
 
 Program: M.S in Information System
 
@@ -66,20 +68,21 @@ This summer, I don't have any other internships or plans, so I can contuibute al
 
 ## Mentors
 
-Mentor names: 
+Mentor names: Johanna Sandoval
 
-Mentor emails: 
+Mentor emails: johanna.sandoval@computationalgenomics.ca
 
 Mentor link_ids: 
 
 Have you been in touch with the mentors? When and how? 
-
+Yes, I have been in touch with the mentors Johanna and Mathieu through E-maill. And I have disscussed some technology issues with mentor Jonhanna, she gives me some very usefull directions and points about how to merge my module into the MUGQICPipeline software.
 
 ## Synopsis (max 150 words)
-MUGQIC_PIPELINE program maintain 7 different pipelines and currently develop 3 others,and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps(e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
+MUGQIC_PIPELINE program maintains 7 different kinds of pipelines and currently develops 3 others, and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps (e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
 
 ##  Benefits to Community (max 250 words)
-Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can decide steps range, in this case, a flowchart contains all information which make MUGQIC_PIPELINE software more friendly and concrete. For example, flowchart contains start node(contains pipeline type,time and output path), step node(e.g. step1:convert BAM to FASTQ files), input/output node(e.g. BAM/FAST files) and action node(tell user what action dose the step do). Plus, I will make an integrated Flowchart creator API in pipeline base class so that it will has no requirement that change the pipeline class to add new type pipeline in future. 
+Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can cnotrol aspects like steps ranges.On this perspective, a flowchart illustrating vital information makes MUGQIC_PIPELINE software more user-friendly and concrete. For example, flowchart contains start node (contains pipeline type,time and output path), step node (e.g. step1:convert BAM to FASTQ files), input/output node (e.g. BAM/FAST files) and action node (tell user what action dose the step do). 
+Moreover, I will design and introduce an integrated Flowchart creator API in pipeline base class so that it will alleviate the requirment to change the pipeline class for adding new type of pipelines in future. 
 
 ## Coding Plan & Methods
 Describe perceived obstacles and challenges, and how you plan to overcome them.
@@ -90,10 +93,10 @@ A Flowchart Creator API which is merged into pipeline base class.
 Graphviz is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. It has important applications in networking, bioinformatics,  software engineering, database and web design, machine learning, and in visual interfaces for other technical domains. 
 Graphviz consists of a graph description language named the [DOT language](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) and a set of tools that can generate and/or process.
 **Why I choose Graphviz:**
-* Graphviz is a mature, stable, open-source and free of charge software. Though it is not a dedicated flowchart or diagramming package, but it's core use case--i.e, efficient and asethetic rendering of objects comprised of nodes and edges, obviously subsumes flowchart drawing
+* Graphviz is a mature, stable, open-source,  free software. Though it is not a dedicated flowchart or diagramming creation tool, it's core use case, i.e, efficient and asethetic rendering of objects comprised of nodes and edges, obviously suits our project objectives;
 * Graphviz has it's own algorithm to automatically arrange nodes and edge.
-* Graphviz provide [many attributes](http://www.graphviz.org/doc/info/attrs.html) to nodes, edges, subgraph. Such as color, size, font, style and url (e.g. When user click on the Trimmoatic node, flowchart will redirect user to trimmomatic [documentation](http://www.usadellab.org/cms/index.php?page=trimmomatic) website)
-* Graphviz consists of DOT language which is an easy and concise language to depict a directed graph.
+* Graphviz provides [many configurable attributes](http://www.graphviz.org/doc/info/attrs.html) to nodes, edges, subgraph. Such as color, size, font, style and url (e.g. When user click on the Trimmoatic node, flowchart will redirect user to trimmomatic [documentation](http://www.usadellab.org/cms/index.php?page=trimmomatic) website). These features make it more convenient and feasible to implement rich user-friendly functionalities and features in Flowchart Creator add-on.
+* Graphviz has defined a Domain Specific Language (DSL), i.e. DOT language, which is straightforward to depict directed graphs.
 * For example,  
 ```dot
   digraph G {  
@@ -102,10 +105,11 @@ Graphviz consists of a graph description language named the [DOT language](https
   }    
   This is an easy directed graph contains 3 nodes, and two edges (-> connects two nodes)
 ```
+By employing DOT DSL, it allows great flexibility for Flowchart Creator add-on to manipulate Graphviz for diagram creation instead of being bound to specific binary releases.
 ####[pydot](http://code.google.com/p/pydot/)
-a python interface to graphviz software  
+A python binding to graphviz library  
 **Why I choose pydot**  
-* Pydot is an **open-source** and **light-weighted** python interface to graphviz, it's mechanism is transfer python code to DOT language and call Graphviz to output the graph.  
+* Pydot is an **open-source** and **light-weighted** python binding to graphviz. The mechanism of pydot is to transfer python code to DOT language and call Graphviz to output the graph.  
 For example, use python module pydot to draw the graph    
 ```python
 import pydot  
@@ -133,11 +137,11 @@ I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the p
 5. class DnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
 6. class RnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
 7. class RnaSeqDeNovoAssemblyCreator(IlluminaCreator)  #(match a pipeline tool)  
-8. class ChiSeqCreator(DnaSeqGenerator) #(match a pipeline tool)  
-9. class DnaSeqHighCoverageCreator #(match a pipeline tool)  
+8. class ChiSeqCreator(DnaSeqCreator) #(match a pipeline tool)  
+9. class DnaSeqHighCoverageCreator(DnaSeqCreator) #(match a pipeline tool)  
 ```
-> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in DnaSeq pipeline, there is a step function trimmomatic which clean FASTQ files so that there will be a function named tremmomatic in DnaSeqCreator to draw a related action, input/output node for this step.  
-2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related function to draw step nodes and connect them to output.  
+> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.  
+2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related functions to draw step nodes and connect them to output.  
 
 ### Merge every Creator class into a callable factory class.
 #### Register every creator class and its related draw_flowchart function into a dict
@@ -226,13 +230,13 @@ the corresponding step are:
 5. picard_merge_sam_files => merge individuals bam files  
 #####**My flowchart output**  
 ##### My flowchart Creator can arrange output in different directions  
-1. LR (from left to right)  
+1. LR (From left to right)  
 
 
 ![outputLR.png](http://52.36.214.116/~wangwei407/gsoc2016/outputLR.png)
 
 
-2. TB (from top to bottom)  
+2. TB (From top to bottom)  
 
 
 ![outputTB.png](http://52.36.214.116/~wangwei407/gsoc2016/outputTB.png)
@@ -249,44 +253,43 @@ the corresponding step are:
 ![output345.png](http://52.36.214.116/~wangwei407/gsoc2016/output345.png)
 ## Timeline
 
-(consult GSOC schedule)
 
 Provide a detailed timeline of how you plan to spend your summer, organized by deliverables.  Don't leave testing and documentation for last, as that's almost a guarantee of a failed project. 
 
-What is your contingency plan for things not going to schedule? 
+
 * **23 April** Get to contact mentor and gather information about MUGQICPipeline, such as each pipeline steps details.
 * **23 May** Begin coding for project.
 
 ###  **Work Period** 
 * **23 May-28** Design whole Flowchart Creator API.
-* **29 May-3 June** Writing documentation for API, including CreatorFactory class and each pipeline Creator class.
-* **4 June-6 June** Design and writing a test class to make sure Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps.For example, for step list[1,3,4,6,7,19,30] output sequence: 1,3,4,6,7,19,30 is correct, sequence: 1,4,6,3,7,19,30 is wrong.
-* **7 June-11 June** Writing CreatorFactory class.
-* **12 June-18 June** Writing Creator classes for each pipeline,which has an order as follows:
+* **29 May-3 June** Write documentation for API, including CreatorFactory class and each pipeline Creator class.
+* **4 June-6 June** Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list [1,3,4,6,7,19,30] output sequence: [1,3,4,6,7,19,30] is correct, sequence: [1,4,6,3,7,19,30] is wrong.
+* **7 June-11 June** Write CreatorFactory class.
+* **12 June-18 June** Write Creator classes for each pipeline, which has an order as follows:
 ![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence.png)
 * **20 June** Mentors and students can begin submitting mid-term evaluations.
 * **27 June** Mid-term evaluations deadline
 * **28 June-August 10** Finish the rest part of Creator for pipeline
-* **August 10-August 23** Test Flowchart Creator API. Disscuss with MUGQICPipeline team to build the flowchart more concise and beautiful(modify node,edges shape and color and output path and etc.)
+* **August 10-August 23** Test Flowchart Creator API. Disscuss with MUGQICPipeline team to build the flowchart more concise and beautiful (modify node,edges shape and color and output path and etc.)
 
 
 ## Management of Coding Project
 
 * Clone MUGQICPipeline to [my respository](http://github.com/wangwei407), and make a branch.
 * Every week, I will commit the change to the branch. I can test my API on local. And I will report test files to mentor and upload to my branch.
-* When I finished the whole API, I will pull request to MUGQICPipeline repository.
+* When I finished the whole API, I will make a pull request to MUGQICPipeline repository.
 
 
 ## Test
 #### Test Class description:
 * Randomly generate two ouput:  
-  1. class name for pipeline type.    
+  1. class name for pipeline type. (e.g. DnaSeq,RnaSeq)    
   2. step object sequence list. For example, step[1,2,3,5,6,7,10,20]  
 * Then pass the output to Creator API.
 * Get the return of Creator API.
-* Check the class name is matched
-* Check the step output sequence is matched and correct.
-
+* Check whether or not the class name is matched
+* Check whether or not the step output sequence is matched and correct.
+* Check whether the step is out of range for pipeline. (e.g. ChiSeq has total 15 steps if Creator receive a step list[1,2,3,4,16] it will raise an out of step range exception)
 
 
 
