@@ -105,7 +105,8 @@ Graphviz consists of a graph description language named the [DOT language](https
   }    
   This is an easy directed graph contains 3 nodes, and two edges (-> connects two nodes)
 ```
-By employing DOT DSL, it allows great flexibility for Flowchart Creator add-on to manipulate Graphviz for diagram creation instead of being bound to specific binary releases.
+> By employing DOT DSL, it allows great flexibility for Flowchart Creator add-on to manipulate Graphviz for diagram creation instead of being bound to specific binary releases.
+
 ####[pydot](http://code.google.com/p/pydot/)
 A python binding to graphviz library  
 **Why I choose pydot**  
