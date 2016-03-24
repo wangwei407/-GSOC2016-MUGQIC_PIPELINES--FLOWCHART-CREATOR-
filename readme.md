@@ -1,19 +1,4 @@
 # Guideline for student application 
-## General guidelines
-
-* Applications that do not contain at least the minimum information in the template **will not** get a slot.
-
-* The best applications run to several pages (10+) if printed, and show considerable thought and planning.  The application process is longer this year than it has been in some prior years, so this should not be a problem.
-
-* Be sure to follow the general guidelines available in the [GSoC student guide](http://write.flossmanuals.net/gsocstudentguide/writing-a-proposal/).
-
-* If you have questions about details, contact your mentors first.  If you still have choices to make or different possible approaches, explore the most likely ones in your application. The goal of your application is to demonstrate your capability to complete the work of the project over the course of the summer, demonstrate that you've given a fair amount of thought to an implementation approach, and plan, as much as possible, for choices that may change the goals or timeline in the application.
-
-* Once your draft application has been submitted, you may receive comments from other C3G mentors, either listed project mentors or others.  Please respond to the comments promptly and completely.  Being non-responsive before you've even been awarded a slot is not a good sign for the success of your proposal.
-
-* Originality is always welcomed. If you have improvement ideas that go beyong the proposed project scope, by all means include them in your proposal.
-
-
 
 ## Project Info
 
@@ -82,7 +67,7 @@ MUGQIC_PIPELINE program maintains 7 different kinds of pipelines and currently d
 
 ##  Benefits to Community (max 250 words)
 Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can cnotrol aspects like steps ranges.On this perspective, a flowchart illustrating vital information makes MUGQIC_PIPELINE software more user-friendly and concrete. For example, flowchart contains start node (contains pipeline type,time and output path), step node (e.g. step1:convert BAM to FASTQ files), input/output node (e.g. BAM/FAST files) and action node (tell user what action dose the step do). 
-Moreover, I will design and introduce an integrated Flowchart creator API in pipeline base class so that it will alleviate the requirment to change the pipeline class for adding new type of pipelines in future. 
+Moreover, Flowchart creator engine can be called after pipeline is running. Then it can generate a more meticulous flowchart helping user to track the status of each step.
 
 ## Coding Plan & Methods
 Describe perceived obstacles and challenges, and how you plan to overcome them.
@@ -128,20 +113,21 @@ Graph.write_png('example.png') #output a png graph named 'example'
 
 ###Flowchart Creator API structure  (challenge) (Thanks to mentor Johanna giving me correct direction and clues)  
 I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:    
-![class.png](http://52.36.214.116/~wangwei407/gsoc2016/class.png)  
+![classes.png](http://52.36.214.116/~wangwei407/gsoc2016/classes.png)
 **In this case, Flowchart Creator API will have 7 kinds of flowchart creator classes and has the same hierarchy as MUGQIC_PIPELINE:**  
 ```python
 1. class MUGQICPipelineCreator  #base class for all creator class
 2. class IlluminaRunProcessingCreator(MUGQICPipelineCreator) #(match a pipeline tool)  
-3. class BioAssemblyPacoCreator(MUGQICPipelineCreator)  #(match a pipeline tool)    
+3. class PacBioAssemblyCreator(MUGQICPipelineCreator)  #(match a pipeline tool)    
 4. class IlluminaCreator(MUGQICPipelineCreator) #This class is not a pipeline tool, but it is the parent class for DnaSeq, RnaSeq.    
 5. class DnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
 6. class RnaSeqCreator(IlluminaCreator)  #(match a pipeline tool)  
 7. class RnaSeqDeNovoAssemblyCreator(IlluminaCreator)  #(match a pipeline tool)  
 8. class ChiSeqCreator(DnaSeqCreator) #(match a pipeline tool)  
 9. class DnaSeqHighCoverageCreator(DnaSeqCreator) #(match a pipeline tool)  
+10. class JobTracker() #This class is used in functionality 2.
 ```
-> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.  
+> 1. Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.What's more, if user run Flowchart Creator to draw a tack flowchart for steps, the function related steps will output a cluster to indicate step and job status.(See Functionality bellow)   
 2. Every Creator has a class method named draw_flowchart which receive a step name list and call self related functions to draw step nodes and connect them to output.  
 
 ### Merge every Creator class into a callable factory class.
@@ -169,7 +155,7 @@ class MUGQICPipelineCreator:
 #### Factory class to merge all Creator class callable  
 ```python
 class CreatorFactory:
-      def __init__(self):
+      def __init__(self,track_mode=True):
          self.registry=CREATOR_CLASSES #pass the rigistry CREATOR_CLASSES into CreatorFactory class
       def __call__(clsname,steps):  
           '''
@@ -184,7 +170,7 @@ class CreatorFactory:
           transfer step object list to a step name (string) list
           '''
           pass  
-Creator=CreatorFactory() #create a CreatorFactory object in order to merge Creator API to MUGQICPipeline Software
+Creator=CreatorFactory(track_mode=False) #create a CreatorFactory object in order to merge Creator API to MUGQICPipeline Software. tack_mode=False means Flowchart Creator will output a overview flowchart as soon as Pipeline starts.
 ```
 #### Merge Creator API into MUGQICPipeline software
 I have observed in core.Pipeline class init() function: 
@@ -211,7 +197,41 @@ I have observed in core.Pipeline class init() function:
 111.                self.argparser.error("argument -s/--steps is required!")
 112.            Creator(self.__class__.__name__, self._step_range) #pass class name and step object list to Creator
 ```
-> In this case, My Creator Factory API has merged into MUGQICPipeline software, and it can output flowchart automatically when pipeline tool is called. 
+> In this case, My Creator Factory API has merged into MUGQICPipeline software, and it can output flowchart automatically when pipeline tool is called. **Or it can be added into self.args, which makes user to control whether or not to output an overview flowchart**
+
+###Functionality: 
+#####As described above, one of the functionalities for the flowchart creator is to output an overview step information(step sequence, name, input, output)flowchart as soon as pipeline runs. 
+#####Another more important functionality is to output a flowchart which makes user more easiler to track the status of step.  
+> MUGQICPipeline is an excellent and complex pipeline tool. And it consists of steps which are controlled by user. 
+MUGQICPipeline has a robust log analysis system. For example,[[1]](https://bitbucket.org/mugqic/mugqic_pipelines/overview#markdown-header-pbs-job-logs) when pipelines are run in PBS (Portable Batch System) job scheduler mode (default), a job list file is created in ```<output_dir>/job_output/<PipelineName>_job_list_<timestamp>```  and subsequent job log files are placed in   ```<output_dir>/job_output/<step_name>/<job_name>_<timestamp>.o```. 
+
+**In view of this situation, I design a mechanism to track the procedure of pipeline and output a detailed flowchart as follows:**  
+
+1. When user types command on the shell:  
+     ```
+     ./FlowchartCreator.py out_dir
+     ```  
+2. Flowchart Creator engine will call```$MUGQIC_PIPELINES_HOME/utils/log_report.pl <output_dir>/job_output/<PipelineName>_job_list_<timestamp> > flowchart.tsv``` to create a log report like [this example.tsv](http://52.36.214.116/~wangwei407/gsoc2016/example.tsv).  
+3. Flowchart Creator engine call class JobTracker to parse and classify output from step 1. 
+
+  >  For example, a row of the output from step 1 is as follows:
+  ```
+  #JOB_ID JOB_FULL_ID    JOB_NAME    JOB_DEPENDENCIES    STATUS    JOB_EXIT_CODE    CMD_EXIT_CODE    REAL_TIME    START_DATE    END_DATE    CPU_TIME    CPU_REAL_TIME_RATIO    PHYSICAL_MEM    VIRTUAL_MEM    EXTRA_VIRTUAL_MEM_PCT    LIMITS    QUEUE    USERNAME    GROUP    SESSION    ACCOUNT    NODES    PATH  
+  2100213.abacus2.ferrier.genome.mcgill.ca    2100213.abacus2.ferrier.genome.mcgill.ca    trimmomatic.readset1    SUCCESS    N/A    0    01:08:45 (1 h 8 min 45 s)    2014-09-30T19:52:58    2014-09-30T21:01:48    02:39:34 (2 h 39 min 34 s)    2.32    1.71 GiB    3.73 GiB    118.2 %    neednodes=1:ppn=6,nodes=1:ppn=6,walltime=24:00:00    sw    jfillon analyste    2465764    N/A    f3c10    /path/to/output_dir/job_output/trimmomatic/trimmomatic.readset1_2014-09-30T19.52.29.o  
+  ```
+JobTracker class will extract ```JOB_NAME, STATUS, JOB_EXIT_CODE, CMD_EXIT_CODE, START_DATE, CPU_TIME ``` data from output file and classfy jobs by steps. For example, JOB_NAME=trimmomatic.readset1 belongs to step trimmomatic.  
+
+4.  Then JobTracker will summerize and operate these data. At last, pass opearted data to class CreatorFactory to draw flowchart graph.  
+    > **In addition, there are some rules to output**:  
+       If all jobs of a step are success or failed, the status of the step is finished.  
+       If there exists a job of a step is active or inactive, the status of the step is not finished.  
+       All steps will output numbers of jobs.  
+       Finished steps will output numbers of success of jobs, numbers of failed jobs, and cpu_time.  
+       Not finished steps will output numbers of success jobs if any, numbers of failed jobs if any, numbers of active and inactive jobs and % progress.  
+5.  Clean some useless files such as flowchart.tsv.  
+6.  Open output flowchart  
+
+###Expected outcome 
 
 ###Flowchart legend for MUGQIC_PIPELINES  
 **input/output node**  
@@ -267,7 +287,7 @@ Provide a detailed timeline of how you plan to spend your summer, organized by d
 * **4 June-6 June** Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list [1,3,4,6,7,19,30] output sequence: [1,3,4,6,7,19,30] is correct, sequence: [1,4,6,3,7,19,30] is wrong.
 * **7 June-11 June** Write CreatorFactory class.
 * **12 June-18 June** Write Creator classes for each pipeline, which has an order as follows:
-![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence.png)
+![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence1.png)
 * **20 June** Mentors and students can begin submitting mid-term evaluations.
 * **27 June** Mid-term evaluations deadline
 * **28 June-August 10** Finish the rest part of Creator for pipeline
