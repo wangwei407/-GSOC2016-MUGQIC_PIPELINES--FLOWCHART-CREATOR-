@@ -1,5 +1,5 @@
 # Guideline for student application 
-[Github link]()
+[Github link](https://github.com/wangwei407/GSOC2016-MUGQIC_PIPELINES--FLOWCHART-CREATOR)
 ## Project Info
 
 Project title: **Flowchart creator for MUGQIC Pipelines**  
