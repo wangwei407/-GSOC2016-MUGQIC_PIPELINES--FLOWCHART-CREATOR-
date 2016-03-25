@@ -1,11 +1,11 @@
 # Guideline for student application 
-
+[Github link]()
 ## Project Info
 
 Project title: **Flowchart creator for MUGQIC Pipelines**  
 Project short title (30 characters): **Flowchart creator**  
-URL of project idea page: [idea link](https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines)  
-## Biographical Information  
+URL of project idea page: [Idea link](https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines)  
+## Biographical Information 
 I am a graduate student at [Washington University in St.Louis](http://wustl.edu), pursuing Master in Information System for Big Data and Predictive Analytics Track. Before coming to U.S. I received my B.S. at Anhui University of Technology, China, in Information system program. Through my course studies and extra curriculum activities, I has built up solid programming backgrounds in aspects such as proficiency in coding and understanding with data structure and algorithm, and, more importantly, ability to analyze and solve problems.
 ### Why I think my background qualifies me for this project.  
 * My solid background and considerable experience, with programming in general and python in specfic, has made it possible for me to analyze the source codes and understand the infrastructure of MUGQICPipeline soon enough;
@@ -72,7 +72,7 @@ Moreover, Flowchart creator engine can be called after pipeline is running. Then
 ## Coding Plan & Methods
 Describe perceived obstacles and challenges, and how you plan to overcome them.
 ###Coding objective:
-A Flowchart Creator API which is merged into pipeline base class.
+A Flowchart Creator Engine.
 ###dependencies
 ####[Graphviz](http://www.graphviz.org)
 Graphviz is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. It has important applications in networking, bioinformatics,  software engineering, database and web design, machine learning, and in visual interfaces for other technical domains. 
@@ -223,25 +223,30 @@ JobTracker class will extract ```JOB_NAME, STATUS, JOB_EXIT_CODE, CMD_EXIT_CODE,
 
 4.  Then JobTracker will summerize and operate these data. At last, pass opearted data to class CreatorFactory to draw flowchart graph.  
     > **In addition, there are some rules to output**:  
-       If all jobs of a step are success or failed, the status of the step is finished.  
-       If there exists a job of a step is active or inactive, the status of the step is not finished.  
-       All steps will output numbers of jobs.  
-       Finished steps will output numbers of success of jobs, numbers of failed jobs, and cpu_time.  
-       Not finished steps will output numbers of success jobs if any, numbers of failed jobs if any, numbers of active and inactive jobs and % progress.  
+       * If all jobs of a step are success or failed, the status of the step is finished.  
+       * If there exists a job of a step is active or inactive, the status of the step is not finished.  
+       * All steps will output numbers of jobs.  
+       * Finished steps will output numbers of success of jobs, numbers of failed jobs, and cpu_time.  
+       * Not finished steps will output numbers of success jobs, numbers of failed jobs, numbers of active and inactive jobs and % progress(finished jobs/total jobs).  
 5.  Clean some useless files such as flowchart.tsv.  
-6.  Open output flowchart  
+6.  Open output flowchart(optional)
 
 ###Expected outcome 
-
-###Flowchart legend for MUGQIC_PIPELINES  
+#### Flowchart legend for JobTracker flowchart
+Diamond for unfinshed step, box shape for finished step.
+####  When user want to track the status of pipeline steps and output a flowchart, the output will looks like:
+![expected.png](http://52.36.214.116/~wangwei407/gsoc2016/expected.png)
+Or if necessary, I can add action node and input node to the flowchart which looks like:
+![expected2.png](http://52.36.214.116/~wangwei407/gsoc2016/expected2.png)
+###Flowchart legend for overview flowchart  
 **input/output node**  
 ####![input.png](http://52.36.214.116/~wangwei407/gsoc2016/input.png)
 **start/end node**  
 ####![start.png](http://52.36.214.116/~wangwei407/gsoc2016/step.png)
 **action node**  
 ####![action.png](http://52.36.214.116/~wangwei407/gsoc2016/action.png)
-###Flowchart expected outcome(selection test)  
-####**Selection tests**  
+
+#### Overview pipeline output for **Selection tests**  
 Implement a test flochart in python for 5 first step of the DNAseq pipeline.
 the corresponding step are:  
 1. picard_sam_to_fastq => generate fastq files from bam files  
@@ -249,7 +254,7 @@ the corresponding step are:
 3. merge_trimmomatic_stats => merge individuals cleaning metrics  
 4. bwa_mem_picard_sort_sam => generate bam files from fastq files  
 5. picard_merge_sam_files => merge individuals bam files  
-#####**My flowchart output**  
+#### When user just want to check out the overview steps for pipeline, it will looks like:
 ##### My flowchart Creator can arrange output in different directions  
 1. LR (From left to right)  
 
@@ -282,11 +287,11 @@ Provide a detailed timeline of how you plan to spend your summer, organized by d
 * **23 May** Begin coding for project.
 
 ###  **Work Period** 
-* **23 May-28** Design whole Flowchart Creator API.
-* **29 May-3 June** Write documentation for API, including CreatorFactory class and each pipeline Creator class.
+* **23 May-28** Design and modify whole Flowchart Creator API.
+* **29 May-3 June** Write documentation for API, including CreatorFactory class ,each pipeline Creator class and JobTracker class.
 * **4 June-6 June** Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list [1,3,4,6,7,19,30] output sequence: [1,3,4,6,7,19,30] is correct, sequence: [1,4,6,3,7,19,30] is wrong.
 * **7 June-11 June** Write CreatorFactory class.
-* **12 June-18 June** Write Creator classes for each pipeline, which has an order as follows:
+* **12 June-18 June** Write JobTracker class and Creator classes for each pipeline, which has an order as follows:
 ![sequence](http://52.36.214.116/~wangwei407/gsoc2016/sequence1.png)
 * **20 June** Mentors and students can begin submitting mid-term evaluations.
 * **27 June** Mid-term evaluations deadline
@@ -302,17 +307,20 @@ Provide a detailed timeline of how you plan to spend your summer, organized by d
 
 
 ## Test
-#### Test Class description:
+#### Test Class for overview pipeline creator:
 * Randomly generate two ouput:  
   1. class name for pipeline type. (e.g. DnaSeq,RnaSeq)    
   2. step object sequence list. For example, step[1,2,3,5,6,7,10,20]  
 * Then pass the output to Creator API.
 * Get the return of Creator API.
-* Check whether or not the class name is matched
+* Check whether or not the class name is matched.
 * Check whether or not the step output sequence is matched and correct.
 * Check whether the step is out of range for pipeline. (e.g. ChiSeq has total 15 steps if Creator receive a step list[1,2,3,4,16] it will raise an out of step range exception)
 
-
+#### Test Class for JobTracker pipeline creator:
+* It will designed and implemented when JobTracker class is finished.
+* The expected outcomes for JobTracker is to parse the right sequence of steps and correct numbers of jobs(success, failed, inactive, active).
 
 ## Anything Else
+It is just a tentative proposal.If I were luckey to be selected as a member of MUGQICPipeline team member, I would discuss some details with team members and mentors.
 
