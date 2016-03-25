@@ -22,24 +22,14 @@
       <h1>
 <a id="guideline-for-student-application" class="anchor" href="#guideline-for-student-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Guideline for student application</h1>
 
-<h2>
-<a id="general-guidelines" class="anchor" href="#general-guidelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General guidelines</h2>
-
-<ul>
-<li><p>Applications that do not contain at least the minimum information in the template <strong>will not</strong> get a slot.</p></li>
-<li><p>The best applications run to several pages (10+) if printed, and show considerable thought and planning.  The application process is longer this year than it has been in some prior years, so this should not be a problem.</p></li>
-<li><p>Be sure to follow the general guidelines available in the <a href="http://write.flossmanuals.net/gsocstudentguide/writing-a-proposal/">GSoC student guide</a>.</p></li>
-<li><p>If you have questions about details, contact your mentors first.  If you still have choices to make or different possible approaches, explore the most likely ones in your application. The goal of your application is to demonstrate your capability to complete the work of the project over the course of the summer, demonstrate that you've given a fair amount of thought to an implementation approach, and plan, as much as possible, for choices that may change the goals or timeline in the application.</p></li>
-<li><p>Once your draft application has been submitted, you may receive comments from other C3G mentors, either listed project mentors or others.  Please respond to the comments promptly and completely.  Being non-responsive before you've even been awarded a slot is not a good sign for the success of your proposal.</p></li>
-<li><p>Originality is always welcomed. If you have improvement ideas that go beyong the proposed project scope, by all means include them in your proposal.</p></li>
-</ul>
+<p><a href="">Github link</a></p>
 
 <h2>
 <a id="project-info" class="anchor" href="#project-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Info</h2>
 
 <p>Project title: <strong>Flowchart creator for MUGQIC Pipelines</strong><br>
 Project short title (30 characters): <strong>Flowchart creator</strong><br>
-URL of project idea page: <a href="https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines">idea link</a>  </p>
+URL of project idea page: <a href="https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines">Idea link</a>  </p>
 
 <h2>
 <a id="biographical-information" class="anchor" href="#biographical-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Biographical Information</h2>
@@ -120,7 +110,7 @@ Yes, I have been in touch with the mentors Johanna and Mathieu through E-maill. 
 <a id="benefits-to-community-max-250-words" class="anchor" href="#benefits-to-community-max-250-words" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Benefits to Community (max 250 words)</h2>
 
 <p>Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in <strong>Synopsis</strong>, MUGQIC_PIPELINE has many different kinds of pipelines and user can cnotrol aspects like steps ranges.On this perspective, a flowchart illustrating vital information makes MUGQIC_PIPELINE software more user-friendly and concrete. For example, flowchart contains start node (contains pipeline type,time and output path), step node (e.g. step1:convert BAM to FASTQ files), input/output node (e.g. BAM/FAST files) and action node (tell user what action dose the step do). 
-Moreover, I will design and introduce an integrated Flowchart creator API in pipeline base class so that it will alleviate the requirment to change the pipeline class for adding new type of pipelines in future. </p>
+Moreover, Flowchart creator engine can be called after pipeline is running. Then it can generate a more meticulous flowchart helping user to track the status of each step.</p>
 
 <h2>
 <a id="coding-plan--methods" class="anchor" href="#coding-plan--methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coding Plan &amp; Methods</h2>
@@ -130,7 +120,7 @@ Moreover, I will design and introduce an integrated Flowchart creator API in pip
 <h3>
 <a id="coding-objective" class="anchor" href="#coding-objective" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coding objective:</h3>
 
-<p>A Flowchart Creator API which is merged into pipeline base class.</p>
+<p>A Flowchart Creator Engine.</p>
 
 <h3>
 <a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>dependencies</h3>
@@ -196,22 +186,23 @@ Graph.write_png(<span class="pl-s"><span class="pl-pds">'</span>example.png<span
 <a id="flowchart-creator-api-structure--challenge-thanks-to-mentor-johanna-giving-me-correct-direction-and-clues" class="anchor" href="#flowchart-creator-api-structure--challenge-thanks-to-mentor-johanna-giving-me-correct-direction-and-clues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flowchart Creator API structure  (challenge) (Thanks to mentor Johanna giving me correct direction and clues)</h3>
 
 <p>I have observed that MUGQIC_PIPELINE software has 7 kinds of pipeline, and the pipeline class structures are as follows:<br>
-<img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/class.png" alt="class.png"><br>
+<img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/classes.png" alt="classes.png">
 <strong>In this case, Flowchart Creator API will have 7 kinds of flowchart creator classes and has the same hierarchy as MUGQIC_PIPELINE:</strong>  </p>
 
 <div class="highlight highlight-source-python"><pre><span class="pl-c1">1</span>. <span class="pl-k">class</span> MUGQICPipelineCreator  <span class="pl-c">#base class for all creator class</span>
 <span class="pl-c1">2</span>. <span class="pl-k">class</span> IlluminaRunProcessingCreator(MUGQICPipelineCreator) <span class="pl-c">#(match a pipeline tool)  </span>
-<span class="pl-c1">3</span>. <span class="pl-k">class</span> BioAssemblyPacoCreator(MUGQICPipelineCreator)  <span class="pl-c">#(match a pipeline tool)    </span>
+<span class="pl-c1">3</span>. <span class="pl-k">class</span> PacBioAssemblyCreator(MUGQICPipelineCreator)  <span class="pl-c">#(match a pipeline tool)    </span>
 <span class="pl-c1">4</span>. <span class="pl-k">class</span> IlluminaCreator(MUGQICPipelineCreator) <span class="pl-c">#This class is not a pipeline tool, but it is the parent class for DnaSeq, RnaSeq.    </span>
 <span class="pl-c1">5</span>. <span class="pl-k">class</span> DnaSeqCreator(IlluminaCreator)  <span class="pl-c">#(match a pipeline tool)  </span>
 <span class="pl-c1">6</span>. <span class="pl-k">class</span> RnaSeqCreator(IlluminaCreator)  <span class="pl-c">#(match a pipeline tool)  </span>
 <span class="pl-c1">7</span>. <span class="pl-k">class</span> RnaSeqDeNovoAssemblyCreator(IlluminaCreator)  <span class="pl-c">#(match a pipeline tool)  </span>
 <span class="pl-c1">8</span>. <span class="pl-k">class</span> ChiSeqCreator(DnaSeqCreator) <span class="pl-c">#(match a pipeline tool)  </span>
-<span class="pl-c1">9</span>. <span class="pl-k">class</span> DnaSeqHighCoverageCreator(DnaSeqCreator) <span class="pl-c">#(match a pipeline tool)  </span></pre></div>
+<span class="pl-c1">9</span>. <span class="pl-k">class</span> DnaSeqHighCoverageCreator(DnaSeqCreator) <span class="pl-c">#(match a pipeline tool)  </span>
+<span class="pl-c1">10</span>. <span class="pl-k">class</span> JobTracker() <span class="pl-c">#This class is used in functionality 2.</span></pre></div>
 
 <blockquote>
 <ol>
-<li>Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.<br>
+<li>Every Creator class which match a pipeline tool has the same function name related to the step function in pipeline tool. For example, in illumina class, there is a step function "trimmomatic" which clean FASTQ files so that there will be a function named tremmomatic in IlluminaCreator to draw a related action, input/output node for this step.What's more, if user run Flowchart Creator to draw a tack flowchart for steps, the function related steps will output a cluster to indicate step and job status.(See Functionality bellow)<br>
 </li>
 <li>Every Creator has a class method named draw_flowchart which receive a step name list and call self related functions to draw step nodes and connect them to output.<br>
 </li>
@@ -249,7 +240,7 @@ Graph.write_png(<span class="pl-s"><span class="pl-pds">'</span>example.png<span
 <a id="factory-class-to-merge-all-creator-class-callable" class="anchor" href="#factory-class-to-merge-all-creator-class-callable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Factory class to merge all Creator class callable</h4>
 
 <div class="highlight highlight-source-python"><pre><span class="pl-k">class</span> <span class="pl-en">CreatorFactory</span>:
-      <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+      <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">track_mode</span><span class="pl-k">=</span><span class="pl-c1">True</span>):
          <span class="pl-v">self</span>.registry<span class="pl-k">=</span><span class="pl-c1">CREATOR_CLASSES</span> <span class="pl-c">#pass the rigistry CREATOR_CLASSES into CreatorFactory class</span>
       <span class="pl-k">def</span> <span class="pl-c1">__call__</span>(<span class="pl-smi">clsname</span>,<span class="pl-smi">steps</span>):  
           <span class="pl-s"><span class="pl-pds">'''</span></span>
@@ -264,7 +255,7 @@ Graph.write_png(<span class="pl-s"><span class="pl-pds">'</span>example.png<span
 <span class="pl-s">          transfer step object list to a step name (string) list</span>
 <span class="pl-s">          <span class="pl-pds">'''</span></span>
           <span class="pl-k">pass</span>  
-Creator<span class="pl-k">=</span>CreatorFactory() <span class="pl-c">#create a CreatorFactory object in order to merge Creator API to MUGQICPipeline Software</span></pre></div>
+Creator<span class="pl-k">=</span>CreatorFactory(<span class="pl-v">track_mode</span><span class="pl-k">=</span><span class="pl-c1">False</span>) <span class="pl-c">#create a CreatorFactory object in order to merge Creator API to MUGQICPipeline Software. tack_mode=False means Flowchart Creator will output a overview flowchart as soon as Pipeline starts.</span></pre></div>
 
 <h4>
 <a id="merge-creator-api-into-mugqicpipeline-software" class="anchor" href="#merge-creator-api-into-mugqicpipeline-software" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Merge Creator API into MUGQICPipeline software</h4>
@@ -295,11 +286,88 @@ Creator<span class="pl-k">=</span>CreatorFactory() <span class="pl-c">#create a 
 <span class="pl-c1">112</span>.            Creator(<span class="pl-v">self</span>.<span class="pl-c1">__class__</span>.<span class="pl-c1">__name__</span>, <span class="pl-v">self</span>._step_range) <span class="pl-c">#pass class name and step object list to Creator</span></pre></div>
 
 <blockquote>
-<p>In this case, My Creator Factory API has merged into MUGQICPipeline software, and it can output flowchart automatically when pipeline tool is called. </p>
+<p>In this case, My Creator Factory API has merged into MUGQICPipeline software, and it can output flowchart automatically when pipeline tool is called. <strong>Or it can be added into self.args, which makes user to control whether or not to output an overview flowchart</strong></p>
 </blockquote>
 
 <h3>
-<a id="flowchart-legend-for-mugqic_pipelines" class="anchor" href="#flowchart-legend-for-mugqic_pipelines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flowchart legend for MUGQIC_PIPELINES</h3>
+<a id="functionality" class="anchor" href="#functionality" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functionality:</h3>
+
+<h5>
+<a id="as-described-above-one-of-the-functionalities-for-the-flowchart-creator-is-to-output-an-overview-step-informationstep-sequence-name-input-outputflowchart-as-soon-as-pipeline-runs" class="anchor" href="#as-described-above-one-of-the-functionalities-for-the-flowchart-creator-is-to-output-an-overview-step-informationstep-sequence-name-input-outputflowchart-as-soon-as-pipeline-runs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>As described above, one of the functionalities for the flowchart creator is to output an overview step information(step sequence, name, input, output)flowchart as soon as pipeline runs.</h5>
+
+<h5>
+<a id="another-more-important-functionality-is-to-output-a-flowchart-which-makes-user-more-easiler-to-track-the-status-of-step" class="anchor" href="#another-more-important-functionality-is-to-output-a-flowchart-which-makes-user-more-easiler-to-track-the-status-of-step" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Another more important functionality is to output a flowchart which makes user more easiler to track the status of step.</h5>
+
+<blockquote>
+<p>MUGQICPipeline is an excellent and complex pipeline tool. And it consists of steps which are controlled by user. 
+MUGQICPipeline has a robust log analysis system. For example,<a href="https://bitbucket.org/mugqic/mugqic_pipelines/overview#markdown-header-pbs-job-logs">[1]</a> when pipelines are run in PBS (Portable Batch System) job scheduler mode (default), a job list file is created in <code>&lt;output_dir&gt;/job_output/&lt;PipelineName&gt;_job_list_&lt;timestamp&gt;</code>  and subsequent job log files are placed in   <code>&lt;output_dir&gt;/job_output/&lt;step_name&gt;/&lt;job_name&gt;_&lt;timestamp&gt;.o</code>. </p>
+</blockquote>
+
+<p><strong>In view of this situation, I design a mechanism to track the procedure of pipeline and output a detailed flowchart as follows:</strong>  </p>
+
+<ol>
+<li>When user types command on the shell:<br>
+ <code>
+ ./FlowchartCreator.py out_dir
+</code><br>
+</li>
+<li>Flowchart Creator engine will call<code>$MUGQIC_PIPELINES_HOME/utils/log_report.pl &lt;output_dir&gt;/job_output/&lt;PipelineName&gt;_job_list_&lt;timestamp&gt; &gt; flowchart.tsv</code> to create a log report like <a href="http://52.36.214.116/%7Ewangwei407/gsoc2016/example.tsv">this example.tsv</a>.<br>
+</li>
+<li>
+<p>Flowchart Creator engine call class JobTracker to parse and classify output from step 1. </p>
+
+<blockquote>
+<p>For example, a row of the output from step 1 is as follows:</p>
+
+<pre><code>#JOB_ID JOB_FULL_ID    JOB_NAME    JOB_DEPENDENCIES    STATUS    JOB_EXIT_CODE    CMD_EXIT_CODE    REAL_TIME    START_DATE    END_DATE    CPU_TIME    CPU_REAL_TIME_RATIO    PHYSICAL_MEM    VIRTUAL_MEM    EXTRA_VIRTUAL_MEM_PCT    LIMITS    QUEUE    USERNAME    GROUP    SESSION    ACCOUNT    NODES    PATH  
+2100213.abacus2.ferrier.genome.mcgill.ca    2100213.abacus2.ferrier.genome.mcgill.ca    trimmomatic.readset1    SUCCESS    N/A    0    01:08:45 (1 h 8 min 45 s)    2014-09-30T19:52:58    2014-09-30T21:01:48    02:39:34 (2 h 39 min 34 s)    2.32    1.71 GiB    3.73 GiB    118.2 %    neednodes=1:ppn=6,nodes=1:ppn=6,walltime=24:00:00    sw    jfillon analyste    2465764    N/A    f3c10    /path/to/output_dir/job_output/trimmomatic/trimmomatic.readset1_2014-09-30T19.52.29.o  
+</code></pre>
+
+<p>JobTracker class will extract <code>JOB_NAME, STATUS, JOB_EXIT_CODE, CMD_EXIT_CODE, START_DATE, CPU_TIME</code> data from output file and classfy jobs by steps. For example, JOB_NAME=trimmomatic.readset1 belongs to step trimmomatic.  </p>
+</blockquote>
+</li>
+<li>
+<p>Then JobTracker will summerize and operate these data. At last, pass opearted data to class CreatorFactory to draw flowchart graph.  </p>
+
+<blockquote>
+<p><strong>In addition, there are some rules to output</strong>:  </p>
+</blockquote>
+
+<ul>
+<li>If all jobs of a step are success or failed, the status of the step is finished.<br>
+</li>
+<li>If there exists a job of a step is active or inactive, the status of the step is not finished.<br>
+</li>
+<li>All steps will output numbers of jobs.<br>
+</li>
+<li>Finished steps will output numbers of success of jobs, numbers of failed jobs, and cpu_time.<br>
+</li>
+<li>Not finished steps will output numbers of success jobs, numbers of failed jobs, numbers of active and inactive jobs and % progress(finished jobs/total jobs).<br>
+</li>
+</ul>
+</li>
+<li> Clean some useless files such as flowchart.tsv.<br>
+</li>
+<li> Open output flowchart(optional)</li>
+</ol>
+
+<h3>
+<a id="expected-outcome" class="anchor" href="#expected-outcome" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Expected outcome</h3>
+
+<h4>
+<a id="flowchart-legend-for-jobtracker-flowchart" class="anchor" href="#flowchart-legend-for-jobtracker-flowchart" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flowchart legend for JobTracker flowchart</h4>
+
+<p>Diamond for unfinshed step, box shape for finished step.</p>
+
+<h4>
+<a id="when-user-want-to-track-the-status-of-pipeline-steps-and-output-a-flowchart-the-output-will-looks-like" class="anchor" href="#when-user-want-to-track-the-status-of-pipeline-steps-and-output-a-flowchart-the-output-will-looks-like" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>When user want to track the status of pipeline steps and output a flowchart, the output will looks like:</h4>
+
+<p><img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/expected.png" alt="expected.png">
+Or if necessary, I can add action node and input node to the flowchart which looks like:
+<img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/expected2.png" alt="expected2.png"></p>
+
+<h3>
+<a id="flowchart-legend-for-overview-flowchart" class="anchor" href="#flowchart-legend-for-overview-flowchart" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flowchart legend for overview flowchart</h3>
 
 <p><strong>input/output node</strong>  </p>
 
@@ -319,11 +387,8 @@ Creator<span class="pl-k">=</span>CreatorFactory() <span class="pl-c">#create a 
 <a id="-2" class="anchor" href="#-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/action.png" alt="action.png">
 </h4>
 
-<h3>
-<a id="flowchart-expected-outcomeselection-test" class="anchor" href="#flowchart-expected-outcomeselection-test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Flowchart expected outcome(selection test)</h3>
-
 <h4>
-<a id="selection-tests" class="anchor" href="#selection-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>Selection tests</strong>
+<a id="overview-pipeline-output-for-selection-tests" class="anchor" href="#overview-pipeline-output-for-selection-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview pipeline output for <strong>Selection tests</strong>
 </h4>
 
 <p>Implement a test flochart in python for 5 first step of the DNAseq pipeline.
@@ -334,9 +399,8 @@ the corresponding step are:<br>
 4. bwa_mem_picard_sort_sam =&gt; generate bam files from fastq files<br>
 5. picard_merge_sam_files =&gt; merge individuals bam files  </p>
 
-<h5>
-<a id="my-flowchart-output" class="anchor" href="#my-flowchart-output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>My flowchart output</strong>
-</h5>
+<h4>
+<a id="when-user-just-want-to-check-out-the-overview-steps-for-pipeline-it-will-looks-like" class="anchor" href="#when-user-just-want-to-check-out-the-overview-steps-for-pipeline-it-will-looks-like" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>When user just want to check out the overview steps for pipeline, it will looks like:</h4>
 
 <h5>
 <a id="my-flowchart-creator-can-arrange-output-in-different-directions" class="anchor" href="#my-flowchart-creator-can-arrange-output-in-different-directions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>My flowchart Creator can arrange output in different directions</h5>
@@ -386,16 +450,16 @@ the corresponding step are:<br>
 
 <ul>
 <li>
-<strong>23 May-28</strong> Design whole Flowchart Creator API.</li>
+<strong>23 May-28</strong> Design and modify whole Flowchart Creator API.</li>
 <li>
-<strong>29 May-3 June</strong> Write documentation for API, including CreatorFactory class and each pipeline Creator class.</li>
+<strong>29 May-3 June</strong> Write documentation for API, including CreatorFactory class ,each pipeline Creator class and JobTracker class.</li>
 <li>
 <strong>4 June-6 June</strong> Design and write a test class to make sure that Flowchart Creator create correct start/end node (pipeline name, type, time) and correct sequence of steps. For example, for step list [1,3,4,6,7,19,30] output sequence: [1,3,4,6,7,19,30] is correct, sequence: [1,4,6,3,7,19,30] is wrong.</li>
 <li>
 <strong>7 June-11 June</strong> Write CreatorFactory class.</li>
 <li>
-<strong>12 June-18 June</strong> Write Creator classes for each pipeline, which has an order as follows:
-<img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/sequence.png" alt="sequence">
+<strong>12 June-18 June</strong> Write JobTracker class and Creator classes for each pipeline, which has an order as follows:
+<img src="http://52.36.214.116/%7Ewangwei407/gsoc2016/sequence1.png" alt="sequence">
 </li>
 <li>
 <strong>20 June</strong> Mentors and students can begin submitting mid-term evaluations.</li>
@@ -420,7 +484,7 @@ the corresponding step are:<br>
 <a id="test" class="anchor" href="#test" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test</h2>
 
 <h4>
-<a id="test-class-description" class="anchor" href="#test-class-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test Class description:</h4>
+<a id="test-class-for-overview-pipeline-creator" class="anchor" href="#test-class-for-overview-pipeline-creator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test Class for overview pipeline creator:</h4>
 
 <ul>
 <li>Randomly generate two ouput:<br>
@@ -434,13 +498,23 @@ the corresponding step are:<br>
 </li>
 <li>Then pass the output to Creator API.</li>
 <li>Get the return of Creator API.</li>
-<li>Check whether or not the class name is matched</li>
+<li>Check whether or not the class name is matched.</li>
 <li>Check whether or not the step output sequence is matched and correct.</li>
 <li>Check whether the step is out of range for pipeline. (e.g. ChiSeq has total 15 steps if Creator receive a step list[1,2,3,4,16] it will raise an out of step range exception)</li>
 </ul>
 
+<h4>
+<a id="test-class-for-jobtracker-pipeline-creator" class="anchor" href="#test-class-for-jobtracker-pipeline-creator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test Class for JobTracker pipeline creator:</h4>
+
+<ul>
+<li>It will designed and implemented when JobTracker class is finished.</li>
+<li>The expected outcomes for JobTracker is to parse the right sequence of steps and correct numbers of jobs(success, failed, inactive, active).</li>
+</ul>
+
 <h2>
 <a id="anything-else" class="anchor" href="#anything-else" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Anything Else</h2>
+
+<p>It is just a tentative proposal.If I were luckey to be selected as a member of MUGQICPipeline team member, I would discuss some details with team members and mentors.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/wangwei407/GSOC2016-MUGQIC_PIPELINES--FLOWCHART-CREATOR">Gsoc2016-mugqic pipelines--flowchart-creator</a> is maintained by <a href="https://github.com/wangwei407">wangwei407</a>.</span>
