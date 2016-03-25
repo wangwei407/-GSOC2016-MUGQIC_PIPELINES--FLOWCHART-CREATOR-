@@ -1,4 +1,4 @@
-# Guideline for student application 
+# Student Application 
 [Github link](https://github.com/wangwei407/GSOC2016-MUGQIC_PIPELINES--FLOWCHART-CREATOR)
 ## Project Info
 
