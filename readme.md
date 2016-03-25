@@ -66,11 +66,11 @@ Yes, I have been in touch with the mentors Johanna and Mathieu through E-maill. 
 MUGQIC_PIPELINE program maintains 7 different kinds of pipelines and currently develops 3 others, and each of them contains 10 to 40 steps. My project is an integrated system which will automatically output flowchart based on different steps (e.g 1-20 or 1,4,9,11,20,21-30) and kinds of pipeline (e.g dnaseq,rnaseq) when pipeline is called.
 
 ##  Benefits to Community (max 250 words)
-Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can cnotrol aspects like steps ranges.On this perspective, a flowchart illustrating vital information makes MUGQIC_PIPELINE software more user-friendly and concrete. For example, flowchart contains start node (contains pipeline type,time and output path), step node (e.g. step1:convert BAM to FASTQ files), input/output node (e.g. BAM/FAST files) and action node (tell user what action dose the step do). 
+Flowchart creator is a user-friendly add-on to MUGQIC_PIPELINE. As metioned in **Synopsis**, MUGQIC_PIPELINE has many different kinds of pipelines and user can cnotrol aspects like steps ranges.On this perspective, a flowchart illustrating vital information makes MUGQIC_PIPELINE software more user-friendly and concrete. For example, flowchart contains start node (contains pipeline type,time and output path), step node (e.g. step1:convert BAM to FASTQ files), input/output node (e.g. BAM/FAST files) and action node (tell user what action dose the step do).  
 Moreover, Flowchart creator engine can be called after pipeline is running. Then it can generate a more meticulous flowchart helping user to track the status of each step.
 
 ## Coding Plan & Methods
-Describe perceived obstacles and challenges, and how you plan to overcome them.
+
 ###Coding objective:
 A Flowchart Creator Engine.
 ###dependencies
