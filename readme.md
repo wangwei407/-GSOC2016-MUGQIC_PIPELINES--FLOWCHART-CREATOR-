@@ -3,7 +3,7 @@
 ## Project Info
 
 Project title: **Flowchart creator for MUGQIC Pipelines**  
-Project short title (30 characters): **Flowchart creator**  
+Project short title (30 characters): **Flowchart Creator Engine**  
 URL of project idea page: [Idea link](https://bitbucket.org/mugqic/gsoc2016#markdown-header-flowchart-creator-for-mugqic-pipelines)  
 ## Biographical Information 
 I am a graduate student at [Washington University in St.Louis](http://wustl.edu), pursuing Master in Information System for Big Data and Predictive Analytics Track. Before coming to U.S. I received my B.S. at Anhui University of Technology, China, in Information system program. Through my course studies and extra curriculum activities, I has built up solid programming backgrounds in aspects such as proficiency in coding and understanding with data structure and algorithm, and, more importantly, ability to analyze and solve problems.
@@ -25,7 +25,7 @@ Student name: Wei Wang
 
 Melange Link_id:  
 
-Student postal address: 304N SKINKER BLVD, APT 3S, ST.LOUIS, MO, U.S.
+Student postal address: 304N SKINKER BLVD, APT 3S, ST.LOUIS, MO,63130, U.S.
 
 Telephone(s): +1 314-541-5129 or +86 139-3399-7555
 
@@ -201,7 +201,7 @@ I have observed in core.Pipeline class init() function:
 
 ###Functionality: 
 #####As described above, one of the functionalities for the flowchart creator is to output an overview step information(step sequence, name, input, output)flowchart as soon as pipeline runs. 
-#####Another more important functionality is to output a flowchart which makes user more easiler to track the status of step.  
+#####Another more important functionality(challenge) is to output a flowchart which makes user more easiler to track the status of step.  
 > MUGQICPipeline is an excellent and complex pipeline tool. And it consists of steps which are controlled by user. 
 MUGQICPipeline has a robust log analysis system. For example,[[1]](https://bitbucket.org/mugqic/mugqic_pipelines/overview#markdown-header-pbs-job-logs) when pipelines are run in PBS (Portable Batch System) job scheduler mode (default), a job list file is created in ```<output_dir>/job_output/<PipelineName>_job_list_<timestamp>```  and subsequent job log files are placed in   ```<output_dir>/job_output/<step_name>/<job_name>_<timestamp>.o```. 
 
@@ -209,7 +209,7 @@ MUGQICPipeline has a robust log analysis system. For example,[[1]](https://bitbu
 
 1. When user types command on the shell:  
      ```
-     ./FlowchartCreator.py out_dir
+     ./FlowchartCreator.py output_dir
      ```  
 2. Flowchart Creator engine will call```$MUGQIC_PIPELINES_HOME/utils/log_report.pl <output_dir>/job_output/<PipelineName>_job_list_<timestamp> > flowchart.tsv``` to create a log report like [this example.tsv](http://52.36.214.116/~wangwei407/gsoc2016/example.tsv).  
 3. Flowchart Creator engine call class JobTracker to parse and classify output from step 1. 
