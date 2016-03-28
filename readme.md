@@ -215,10 +215,10 @@ MUGQICPipeline has a robust log analysis system. For example,[[1]](https://bitbu
 3. Flowchart Creator engine call class JobTracker to parse and classify output from step 1. 
 
   >  For example, a row of the output from step 1 is as follows:
-  ```
+```bash
   #JOB_ID JOB_FULL_ID    JOB_NAME    JOB_DEPENDENCIES    STATUS    JOB_EXIT_CODE    CMD_EXIT_CODE    REAL_TIME    START_DATE    END_DATE    CPU_TIME    CPU_REAL_TIME_RATIO    PHYSICAL_MEM    VIRTUAL_MEM    EXTRA_VIRTUAL_MEM_PCT    LIMITS    QUEUE    USERNAME    GROUP    SESSION    ACCOUNT    NODES    PATH  
   2100213.abacus2.ferrier.genome.mcgill.ca    2100213.abacus2.ferrier.genome.mcgill.ca    trimmomatic.readset1    SUCCESS    N/A    0    01:08:45 (1 h 8 min 45 s)    2014-09-30T19:52:58    2014-09-30T21:01:48    02:39:34 (2 h 39 min 34 s)    2.32    1.71 GiB    3.73 GiB    118.2 %    neednodes=1:ppn=6,nodes=1:ppn=6,walltime=24:00:00    sw    jfillon analyste    2465764    N/A    f3c10    /path/to/output_dir/job_output/trimmomatic/trimmomatic.readset1_2014-09-30T19.52.29.o  
-  ```
+```
 JobTracker class will extract ```JOB_NAME, STATUS, JOB_EXIT_CODE, CMD_EXIT_CODE, START_DATE, CPU_TIME ``` data from output file and classfy jobs by steps. For example, JOB_NAME=trimmomatic.readset1 belongs to step trimmomatic.  
 
 4.  Then JobTracker will summerize and operate these data. At last, pass opearted data to class CreatorFactory to draw flowchart graph.  
